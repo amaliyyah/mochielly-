@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Mochielly</title>
+
+<!-- BOOTSTRAP -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+
+<style>
+
+body{
+    background: #fdf1f5;
+    font-family: 'Poppins', sans-serif;
+}
+
+/* NAVBAR */
+.custom-navbar{
+    background: #f8c8dc;
+    padding: 7px 0;
+}
+
+.navbar-brand{
+    color: #7a3f57;
+}
+
+.nav-link{
+    color: #7a3f57 !important;
+}
+
+.btn-outline-custom{
+    border: 1px solid #ff69b4;
+    color: #ff69b4;
+}
+
+.btn-outline-custom:hover{
+    background: #ff69b4;
+    color: white;
+}
+
+/* HERO */
+.hero{
+    background: #f3c6d2;
+    padding: 60px 20px;
+}
+
+.hero img{
+    width: 230px;
+    height: 230px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 8px solid white;
+}
+
+.hero h1{
+    color: #5e2f43;
+    font-size: 45px;
+    font-weight: bold;
+}
+
+/* TITLE */
+.section-title{
+    text-align: center;
+    margin: 60px 0 35px;
+    font-weight: bold;
+    color: #7a3f57;
+}
+
+/* PRODUCT */
+.product-card{
+    background: white;
+    border-radius: 25px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.07);
+    transition: 0.3s;
+}
+
+.product-card:hover{
+    transform: translateY(-5px);
+}
+
+.product-card img{
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.price{
+    color: #ff69b4;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+/* QTY BUTTON */
+.qty-btn{
+    width: 35px;
+    height: 35px;
+    border: none;
+    border-radius: 50%;
+    background: #ffb6c1;
+    color: white;
+    font-weight: bold;
+}
+
+.qty{
+    font-weight: bold;
+    font-size: 18px;
+}
+
+/* CART BUTTON */
+.cart-btn{
+    background: #ff69b4;
+    color: white;
+    border: none;
+    padding: 10px 22px;
+    border-radius: 20px;
+    margin-top: 15px;
+}
+
+/* PROMO */
+.promo{
+    margin-top: 70px;
+    background: #f7d1dc;
+    padding: 60px 20px;
+}
+
+.promo img{
+    border-radius: 25px;
+}
+
+/* REVIEW */
+.review{
+    background: #fbe4eb;
+    padding: 60px 20px;
+}
+
+/* FOOTER */
+footer{
+    background: white;
+    padding: 40px;
+    margin-top: 50px;
+}
+
+/* CART PAGE */
+#cartPage{
+    display: none;
+    padding: 40px 20px;
+}
+
+.cart-box{
+    background: white;
+    border-radius: 25px;
+    padding: 30px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+}
+
+.cart-item{
+    border-bottom: 1px solid #eee;
+    padding: 15px 0;
+}
+
+.cart-item img{
+    width: 80px;
+    height: 80px;
+    border-radius: 20px;
+    object-fit: cover;
+}
+
+.payment-box{
+    background: #fff0f5;
+    border-radius: 20px;
+    padding: 20px;
+}
+
+/* SUCCESS */
+#successMessage{
+    display: none;
+}
+
+.success-box{
+    background: white;
+    padding: 40px;
+    border-radius: 25px;
+    text-align: center;
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar navbar-expand-lg custom-navbar">
+<div class="container">
+
+<a class="navbar-brand fw-bold">🍡 Mochielly</a>
+
+<button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#menu">
+<span class="navbar-toggler-icon"></span>
+</button>
+
+<div class="collapse navbar-collapse" id="menu">
+
+<ul class="navbar-nav me-auto">
+<li class="nav-item"><a href="#" class="nav-link">Home</a></li>
+<li class="nav-item"><a href="#" class="nav-link">Produk</a></li>
+<li class="nav-item"><a href="#" class="nav-link">Kontak</a></li>
+</ul>
+
+<form class="d-flex gap-2 align-items-center">
+
+<input class="form-control" type="search" placeholder="Cari mochi...">
+
+<button class="btn btn-outline-custom">
+Search
+</button>
+
+<!-- CART ICON -->
+<div onclick="openCart()" style="cursor:pointer;">
+<i class="bi bi-cart3 fs-4"></i>
+<span class="badge bg-danger" id="cartCount">0</span>
+</div>
+
+</form>
+
+</div>
+</div>
+</nav>
+
+<!-- MAIN PAGE -->
+<div id="mainPage">
+
+<!-- HERO -->
+<section class="hero">
+<div class="container">
+<div class="row align-items-center">
+
+<div class="col-md-6 text-center">
+<img src="download (18).jpeg">
+</div>
+
+<div class="col-md-6">
+<h1>*:･ﾟ 𝓦𝓮𝓵𝓬𝓸𝓂𝓮*ੈ✩‧₊ </h1>
+
+<p>
+°❀⋆.ೃ࿔*: Soft, chewy & viral dessert loved by everyone
+</p>
+
+<button class="btn btn-light">
+Shop Now
+</button>
+
+</div>
+</div>
+</div>
+</section>
+
+<!-- PRODUCT -->
+<h2 class="section-title">
+Our Special Menu ꉂ(˵˃ ᗜ ˂˵) 
+</h2>
+
+<div class="container">
+<div class="row g-4 justify-content-center">
+
+<!-- PRODUCT 1 -->
+<div class="col-md-4 col-lg-3">
+<div class="product-card">
+
+<img src="Dubai Mochi Chewy Cookie.jpeg">
+
+<h5 class="mt-3">
+Mochi Dubai
+</h5>
+
+<p class="price">
+Rp40.000
+</p>
+
+<div class="d-flex justify-content-center gap-3">
+
+<button class="qty-btn" onclick="decrease(this)">
+-
+</button>
+
+<span class="qty">
+0
+</span>
+
+<button class="qty-btn" onclick="increase(this)">
++
+</button>
+
+</div>
+
+<button class="cart-btn"
+onclick="addToCart('Mochi Dubai',40000,'Dubai Mochi Chewy Cookie.jpeg',this)">
+Add To Cart
+</button>
+
+</div>
+</div>
+
+<!-- PRODUCT 2 -->
+<div class="col-md-4 col-lg-3">
+<div class="product-card">
+
+<img src="download (7).jpeg">
+
+<h5 class="mt-3">
+Daifuku
+</h5>
+
+<p class="price">
+Rp30.000
+</p>
+
+<div class="d-flex justify-content-center gap-3">
+
+<button class="qty-btn" onclick="decrease(this)">
+-
+</button>
+
+<span class="qty">
+0
+</span>
+
+<button class="qty-btn" onclick="increase(this)">
++
+</button>
+
+</div>
+
+<button class="cart-btn"
+onclick="addToCart('Daifuku',30000,'download (7).jpeg',this)">
+Add To Cart
+</button>
+
+</div>
+</div>
+
+<!-- PRODUCT 3 -->
+<div class="col-md-4 col-lg-3">
+<div class="product-card">
+
+<img src="Chocolate mochi.jpeg">
+
+<h5 class="mt-3">
+Chocolate Mochi
+</h5>
+
+<p class="price">
+Rp25.000
+</p>
+
+<div class="d-flex justify-content-center gap-3">
+
+<button class="qty-btn" onclick="decrease(this)">
+-
+</button>
+
+<span class="qty">
+0
+</span>
+
+<button class="qty-btn" onclick="increase(this)">
++
+</button>
+
+</div>
+
+<button class="cart-btn"
+onclick="addToCart('Chocolate Mochi',25000,'Chocolate mochi.jpeg',this)">
+Add To Cart
+</button>
+
+</div>
+</div>
+
+<!-- PRODUCT 4 -->
+<div class="col-md-4 col-lg-3">
+<div class="product-card">
+
+<img src="download (21).jpeg">
+
+<h5 class="mt-3">
+Matcha Mochi
+</h5>
+
+<p class="price">
+Rp35.000
+</p>
+
+<div class="d-flex justify-content-center gap-3">
+
+<button class="qty-btn" onclick="decrease(this)">
+-
+</button>
+
+<span class="qty">
+0
+</span>
+
+<button class="qty-btn" onclick="increase(this)">
++
+</button>
+
+</div>
+
+<button class="cart-btn"
+onclick="addToCart('Matcha Mochi',35000,'download (21).jpeg',this)">
+Add To Cart
+</button>
+
+</div>
+</div>
+
+</div>
+</div>
+
+<!-- PROMO -->
+<section class="promo">
+
+<div class="container">
+<div class="row align-items-center">
+
+<div class="col-md-6">
+
+<h1>
+Spring Mochi Sale 🌸
+</h1>
+
+<p>
+Get 5% OFF for total purchase above Rp200.000 ✨
+</p>
+
+<button class="btn btn-light">
+Shop Now
+</button>
+
+</div>
+
+<div class="col-md-6 text-center">
+<img src="download (22).jpeg" width="320">
+</div>
+
+</div>
+</div>
+</section>
+
+<!-- REVIEW -->
+<section class="review text-center">
+
+<h3>
+Loved by Thousands (˶ᵔ ᵕ ᵔ˶)
+</h3>
+
+<p>
+"Best mochi ever, super soft & sweet!"
+</p>
+
+⭐⭐⭐⭐⭐
+
+</section>
+
+<!-- FOOTER -->
+<footer>
+
+<div class="container">
+<div class="row">
+
+<div class="col-md-4">
+<h5>Mochielly</h5>
+<p>Sweet • Chewy • Viral</p>
+</div>
+
+<div class="col-md-4">
+<h5>Quick Links</h5>
+<p>Home <br> Produk <br> Kontak</p>
+</div>
+
+<div class="col-md-4">
+<h5>Follow Us</h5>
+<i class="bi bi-instagram fs-4"></i>
+<i class="bi bi-tiktok fs-4"></i>
+</div>
+
+</div>
+</div>
+
+</footer>
+
+</div>
+
+<!-- CART PAGE -->
+<div id="cartPage">
+
+<div class="container">
+
+<div class="cart-box">
+
+<h1 class="mb-4">
+🛒 Shopping Cart
+</h1>
+
+<div id="cartItems"></div>
+
+<div class="row mt-5">
+
+<div class="col-md-4 ms-auto">
+
+<div class="payment-box">
+
+<h4>
+Order Summary
+</h4>
+
+<p>
+Subtotal:
+Rp <span id="subtotal">0</span>
+</p>
+
+<p>
+Discount:
+Rp <span id="discount">0</span>
+</p>
+
+<h5>
+Total:
+Rp <span id="total">0</span>
+</h5>
+
+<hr>
+
+<select class="form-select mb-3" id="paymentMethod">
+
+<option>QRIS</option>
+<option>Bank Transfer</option>
+<option>E-Wallet</option>
+<option>Saldo</option>
+
+</select>
+
+<input type="password"
+class="form-control mb-3"
+placeholder="Enter PIN">
+
+<button class="btn btn-dark w-100"
+onclick="checkout()">
+Checkout Now
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- SUCCESS -->
+<div id="successMessage" class="container mt-5">
+
+<div class="success-box">
+
+<h1>
+ Payment Successful!📜 
+</h1>
+
+<h4 class="mt-3">
+Thank you for shopping at Mochielly  ❀.(*´◡`*)❀
+</h4>
+
+<button class="btn btn-success mt-3"
+onclick="backHome()">
+Back Home
+</button>
+
+</div>
+
+</div>
+
+<!-- SCRIPT -->
+<script>
+
+let cart = [];
+
+function increase(btn){
+
+let qty = btn.parentElement.querySelector(".qty");
+
+qty.innerText =
+parseInt(qty.innerText)+1;
+
+}
+
+function decrease(btn){
+
+let qty = btn.parentElement.querySelector(".qty");
+
+let val = parseInt(qty.innerText);
+
+if(val>0){
+qty.innerText = val-1;
+}
+
+}
+
+function addToCart(name,price,image,button){
+
+let card =
+button.parentElement;
+
+let qty =
+parseInt(card.querySelector(".qty").innerText);
+
+if(qty <= 0){
+alert("Please select quantity first!");
+return;
+}
+
+cart.push({
+name,
+price,
+image,
+qty
+});
+
+updateCartCount();
+
+alert(name + " added to cart!");
+
+}
+
+function updateCartCount(){
+
+document.getElementById("cartCount").innerText =
+cart.length;
+
+}
+
+function openCart(){
+
+document.getElementById("mainPage").style.display = "none";
+
+document.getElementById("cartPage").style.display = "block";
+
+displayCart();
+
+}
+
+function displayCart(){
+
+let cartItems =
+document.getElementById("cartItems");
+
+cartItems.innerHTML = "";
+
+let subtotal = 0;
+
+cart.forEach(item => {
+
+subtotal += item.price * item.qty;
+
+cartItems.innerHTML += `
+
+<div class="cart-item d-flex justify-content-between align-items-center">
+
+<div class="d-flex align-items-center gap-3">
+
+<img src="${item.image}">
+
+<div>
+
+<h5>${item.name}</h5>
+
+<p>Qty: ${item.qty}</p>
+
+</div>
+
+</div>
+
+<h5>
+Rp ${item.price * item.qty}
+</h5>
+
+</div>
+
+`;
+
+});
+
+let discount = 0;
+
+if(subtotal > 200000){
+discount = subtotal * 0.05;
+}
+
+let total = subtotal - discount;
+
+document.getElementById("subtotal").innerText =
+subtotal.toLocaleString();
+
+document.getElementById("discount").innerText =
+discount.toLocaleString();
+
+document.getElementById("total").innerText =
+total.toLocaleString();
+
+}
+
+function checkout(){
+
+document.getElementById("cartPage").style.display =
+"none";
+
+document.getElementById("successMessage").style.display =
+"block";
+
+}
+
+function backHome(){
+
+location.reload();
+
+}
+
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
